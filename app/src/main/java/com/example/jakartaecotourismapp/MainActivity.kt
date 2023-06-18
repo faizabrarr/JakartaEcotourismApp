@@ -52,43 +52,43 @@ class MainActivity : ComponentActivity() {
                             }
 
                             composable("detail1") {
-                                DetailScreen1(navController)
+                                DetailScreen1(navController, activityResultRegistry)
                             }
 
                             composable("detail2") {
-                                DetailScreen2(navController)
+                                DetailScreen2(navController, activityResultRegistry)
                             }
 
                              composable("detail3") {
-                                DetailScreen3(navController)
+                                DetailScreen3(navController, activityResultRegistry)
                              }
 
                             composable("detail4") {
-                                DetailScreen4(navController)
+                                DetailScreen4(navController, activityResultRegistry)
                             }
 
                             composable("detail5") {
-                                DetailScreen5(navController)
+                                DetailScreen5(navController, activityResultRegistry)
                             }
 
                             composable("detail6") {
-                                DetailScreen6(navController)
+                                DetailScreen6(navController, activityResultRegistry)
                             }
 
                             composable("detail7") {
-                                DetailScreen7(navController)
+                                DetailScreen7(navController, activityResultRegistry)
                             }
 
                             composable("detail8") {
-                                DetailScreen8(navController)
+                                DetailScreen8(navController, activityResultRegistry)
                             }
 
                             composable("detail9") {
-                                DetailScreen9(navController)
+                                DetailScreen9(navController, activityResultRegistry)
                             }
 
                             composable("detail10") {
-                                DetailScreen10(navController)
+                                DetailScreen10(navController, activityResultRegistry)
                             }
 
                         }

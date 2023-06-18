@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -30,7 +29,6 @@ import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.OpenInBrowser
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,9 +45,17 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.insets.statusBarsPadding
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
 
 @Composable
-fun DetailScreen6(navController: NavController) {
+fun DetailScreen6(navController: NavController, activityResultRegistry: ActivityResultRegistry) {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+
+    }
+
     LazyColumn() {
         item {
             DetailHeader6(navController)
@@ -57,8 +63,9 @@ fun DetailScreen6(navController: NavController) {
         }
 
         itemsIndexed(tripDays6) { _, data ->
-            TripDayContent6(data)
+            TripDayContent6(data, launcher)
         }
+
     }
 }
 
@@ -112,7 +119,7 @@ fun TripInfoContent6(navController: NavController) {
             .padding(10.dp)
     ) {
         Row {
-            LocationChip6(text = "Srengseng Sawah, Jagakarsa, Jakarta Selatan")
+            LocationChip4(text = "Srengseng Sawah, Jagakarsa, Jakarta Selatan")
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Default.Star, contentDescription = "",
@@ -128,7 +135,6 @@ fun TripInfoContent6(navController: NavController) {
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
             )
-
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -138,7 +144,6 @@ fun TripInfoContent6(navController: NavController) {
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
         )
-
 
         Divider(
             color = Color(0xFFECECEE),
@@ -150,29 +155,16 @@ fun TripInfoContent6(navController: NavController) {
                 imageVector = Icons.Default.CalendarToday,
                 title = "Waktu Operasional",
                 subtitle = "Senin - Minggu\n09:00 - 16:00 WIB",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier
             )
 
             TripDataItem6(
                 imageVector = Icons.Default.AttachMoney,
                 title = "Biaya masuk",
                 subtitle = "Gratis",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
 
-            TripDataItem6(
-                imageVector = Icons.Default.OpenInBrowser,
-                title = "Website Resmi",
-                subtitle = "Setubabakanbetawi.com",
-                modifier = Modifier,
-                onClick = {
-                    val uri = Uri.parse("https://www.setubabakanbetawi.com/")
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    startActivity(navController.context, intent, null)
-                }
-            )
         }
 
         Divider(
@@ -181,6 +173,8 @@ fun TripInfoContent6(navController: NavController) {
         )
     }
 }
+
+
 
 data class TripDayData6(val title: String, val detail: String)
 
@@ -191,6 +185,11 @@ var tripDays6 = listOf(
     ),
 
     TripDayData6(
+        title = "Website Resmi",
+        detail = "https://www.setubabakanbetawi.com/"
+    ),
+
+    TripDayData6(
         title = "Deskripsi",
         detail = "Ide dan keinginan untuk membangun pusat kebudayaan Betawi sesungguhnya sudah tercetus sejak tahun 90 – an. Kemudian oleh BAMUS BETAWI (Badan Musyawarah Masyarakat Betawi) periode 1996 – 2001 keinginan ini dituangkan dalam sebuah rancangan program kerja yakni ”Membangun Pusat Perkampungan Budaya Betawi”.\n" +
                 "\n" +
@@ -198,8 +197,12 @@ var tripDays6 = listOf(
     ),
 )
 
+
 @Composable
-fun TripDayContent6(day: TripDayData6) {
+fun TripDayContent6(day: TripDayData6, launcher: ActivityResultLauncher<Intent>) {
+    val uri = Uri.parse(day.detail)
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -212,20 +215,30 @@ fun TripDayContent6(day: TripDayData6) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = day.detail,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            lineHeight = 18.sp
-        )
+        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+                modifier = Modifier.clickable { launcher.launch(intent) }
+            )
+        } else {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+            )
+        }
     }
 }
 
+
+
 @Composable
-fun TripDataItem6(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier.clickable { onClick() }
-    ) {
+fun TripDataItem6(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier) {
+    Row() {
         Icon(
             modifier = Modifier
                 .padding(8.dp)
@@ -252,6 +265,7 @@ fun TripDataItem6(imageVector: ImageVector, title: String, subtitle: String, mod
         }
     }
 }
+
 
 @Composable
 fun LocationChip6(text: String) {

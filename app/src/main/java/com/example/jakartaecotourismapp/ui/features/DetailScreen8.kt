@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -30,7 +29,6 @@ import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.OpenInBrowser
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,9 +45,17 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.insets.statusBarsPadding
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
 
 @Composable
-fun DetailScreen8(navController: NavController) {
+fun DetailScreen8(navController: NavController, activityResultRegistry: ActivityResultRegistry) {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+
+    }
+
     LazyColumn() {
         item {
             DetailHeader8(navController)
@@ -57,8 +63,9 @@ fun DetailScreen8(navController: NavController) {
         }
 
         itemsIndexed(tripDays8) { _, data ->
-            TripDayContent8(data)
+            TripDayContent8(data, launcher)
         }
+
     }
 }
 
@@ -128,7 +135,6 @@ fun TripInfoContent8(navController: NavController) {
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
             )
-
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -138,7 +144,6 @@ fun TripInfoContent8(navController: NavController) {
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
         )
-
 
         Divider(
             color = Color(0xFFECECEE),
@@ -150,29 +155,16 @@ fun TripInfoContent8(navController: NavController) {
                 imageVector = Icons.Default.CalendarToday,
                 title = "Waktu Operasional",
                 subtitle = "Buka 24jam",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier
             )
 
             TripDataItem8(
                 imageVector = Icons.Default.AttachMoney,
                 title = "Biaya masuk",
                 subtitle = "Rp. 5000",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
 
-            TripDataItem8(
-                imageVector = Icons.Default.OpenInBrowser,
-                title = "Website Resmi",
-                subtitle = "tnlkepulauanseribu.go.id",
-                modifier = Modifier,
-                onClick = {
-                    val uri = Uri.parse("https://tnlkepulauanseribu.menlhk.go.id/")
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    startActivity(navController.context, intent, null)
-                }
-            )
         }
 
         Divider(
@@ -181,6 +173,8 @@ fun TripInfoContent8(navController: NavController) {
         )
     }
 }
+
+
 
 data class TripDayData8(val title: String, val detail: String)
 
@@ -191,13 +185,21 @@ var tripDays8 = listOf(
     ),
 
     TripDayData8(
+        title = "Website Resmi",
+        detail = "https://tnlkepulauanseribu.menlhk.go.id/"
+    ),
+
+    TripDayData8(
         title = "Deskripsi",
         detail = "Keberadaan Taman Nasional Kepulauan Seribu diawali dengan berbagai cerita yang menarik. Bermula dari tahun 1979, didukung oleh FAO (Food and Agriculture Organization) PBB, dilakukan kajian dan survey di Indonesia untuk menemukan satu lokasi perairan laut yang cocok dijadikan sebagai Taman Nasional laut (marine national park) pertama di Indonesia. Saat itu FAO sedang menjalankan proyek membantu under-developed country (negara belum berkembang) dalam upaya konservasi untuk pembangunan yang berkelanjutan."
     ),
 )
 
 @Composable
-fun TripDayContent8(day: TripDayData8) {
+fun TripDayContent8(day: TripDayData8, launcher: ActivityResultLauncher<Intent>) {
+    val uri = Uri.parse(day.detail)
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -210,20 +212,30 @@ fun TripDayContent8(day: TripDayData8) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = day.detail,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            lineHeight = 18.sp
-        )
+        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+                modifier = Modifier.clickable { launcher.launch(intent) }
+            )
+        } else {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+            )
+        }
     }
 }
 
+
+
 @Composable
-fun TripDataItem8(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier.clickable { onClick() }
-    ) {
+fun TripDataItem8(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier) {
+    Row() {
         Icon(
             modifier = Modifier
                 .padding(8.dp)
@@ -250,6 +262,7 @@ fun TripDataItem8(imageVector: ImageVector, title: String, subtitle: String, mod
         }
     }
 }
+
 
 @Composable
 fun LocationChip8(text: String) {

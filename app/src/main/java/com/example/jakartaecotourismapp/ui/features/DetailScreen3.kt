@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -46,9 +45,17 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.insets.statusBarsPadding
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
 
 @Composable
-fun DetailScreen3(navController: NavController) {
+fun DetailScreen3(navController: NavController, activityResultRegistry: ActivityResultRegistry) {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+
+    }
+
     LazyColumn() {
         item {
             DetailHeader3(navController)
@@ -56,11 +63,11 @@ fun DetailScreen3(navController: NavController) {
         }
 
         itemsIndexed(tripDays3) { _, data ->
-            TripDayContent3(data)
+            TripDayContent3(data, launcher)
         }
+
     }
 }
-
 
 
 @Composable
@@ -81,7 +88,7 @@ fun DetailHeader3(navController: NavController) {
                 .statusBarsPadding()
                 .fillMaxWidth()
         ) {
-            TopButton3(
+            TopButton2(
                 imageVector = Icons.Default.ArrowBack,
                 modifier = Modifier
                     .align(Alignment.TopStart)
@@ -90,7 +97,7 @@ fun DetailHeader3(navController: NavController) {
                 navController.popBackStack()
             }
 
-            TopButton3(
+            TopButton2(
                 imageVector = Icons.Default.Map,
                 modifier = Modifier
                     .align(Alignment.TopEnd)
@@ -127,7 +134,6 @@ fun TripInfoContent3(navController: NavController) {
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
             )
-
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -137,7 +143,6 @@ fun TripInfoContent3(navController: NavController) {
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
         )
-
 
         Divider(
             color = Color(0xFFECECEE),
@@ -149,16 +154,14 @@ fun TripInfoContent3(navController: NavController) {
                 imageVector = Icons.Default.CalendarToday,
                 title = "Waktu Operasional",
                 subtitle = "Senin - Minggu\n07:00 - 17:00 WIB",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier
             )
 
             TripDataItem3(
                 imageVector = Icons.Default.AttachMoney,
                 title = "Biaya masuk",
                 subtitle = "Rp. 2000",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
 
         }
@@ -170,6 +173,8 @@ fun TripInfoContent3(navController: NavController) {
     }
 }
 
+
+
 data class TripDayData3(val title: String, val detail: String)
 
 var tripDays3 = listOf(
@@ -177,6 +182,7 @@ var tripDays3 = listOf(
         title = "Hutan Kota Srengseng",
         detail = "Jl. H. Kelik, RT.8/RW.6, Srengseng, Kec. Kembangan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta  ."
     ),
+
     TripDayData3(
         title = "Deskripsi",
         detail = "Ketika sedang berada di Jakarta, ngadem di mall adalah kegiatan lumrah. Namun jangan salah Jakarta juga punya hutan yang enak sebagai tempat ngadem seperti Hutan Kota Srengseng. Hutan ini merupakan ruang hijau yang berada di Srengseng, Jakarta Barat.\n" +
@@ -186,7 +192,10 @@ var tripDays3 = listOf(
 )
 
 @Composable
-fun TripDayContent3(day: TripDayData3) {
+fun TripDayContent3(day: TripDayData3, launcher: ActivityResultLauncher<Intent>) {
+    val uri = Uri.parse(day.detail)
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -199,20 +208,30 @@ fun TripDayContent3(day: TripDayData3) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = day.detail,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            lineHeight = 18.sp
-        )
+        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+                modifier = Modifier.clickable { launcher.launch(intent) }
+            )
+        } else {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+            )
+        }
     }
 }
 
+
+
 @Composable
-fun TripDataItem3(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier.clickable { onClick() }
-    ) {
+fun TripDataItem3(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier) {
+    Row() {
         Icon(
             modifier = Modifier
                 .padding(8.dp)
@@ -239,6 +258,7 @@ fun TripDataItem3(imageVector: ImageVector, title: String, subtitle: String, mod
         }
     }
 }
+
 
 @Composable
 fun LocationChip3(text: String) {

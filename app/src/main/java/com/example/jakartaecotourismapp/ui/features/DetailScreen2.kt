@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -30,7 +29,6 @@ import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.OpenInBrowser
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,9 +45,17 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.insets.statusBarsPadding
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
 
 @Composable
-fun DetailScreen2(navController: NavController) {
+fun DetailScreen2(navController: NavController, activityResultRegistry: ActivityResultRegistry) {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+
+    }
+
     LazyColumn() {
         item {
             DetailHeader2(navController)
@@ -57,11 +63,11 @@ fun DetailScreen2(navController: NavController) {
         }
 
         itemsIndexed(tripDays2) { _, data ->
-            TripDayContent2(data)
+            TripDayContent2(data, launcher)
         }
+
     }
 }
-
 
 
 @Composable
@@ -138,7 +144,6 @@ fun TripInfoContent2(navController: NavController) {
             fontSize = 18.sp,
         )
 
-
         Divider(
             color = Color(0xFFECECEE),
             modifier = Modifier.padding(10.dp)
@@ -149,29 +154,16 @@ fun TripInfoContent2(navController: NavController) {
                 imageVector = Icons.Default.CalendarToday,
                 title = "Waktu Operasional",
                 subtitle = "Senin - Minggu\n06:00 - 18:00 WIB",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier
             )
 
             TripDataItem2(
                 imageVector = Icons.Default.AttachMoney,
                 title = "Biaya masuk",
-                subtitle = "Rp. 25.000\n(Biaya masuk\nkawasan ancol)",
-                modifier = Modifier,
-                onClick = {}
+                subtitle = "Rp. 15.000 s/d\nRp. 30.000",
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
 
-            TripDataItem2(
-                imageVector = Icons.Default.OpenInBrowser,
-                title = "Website Resmi",
-                subtitle = "Ancol.com",
-                modifier = Modifier,
-                onClick = {
-                    val uri = Uri.parse("https://www.ancol.com/unit-rekreasi/ecopark-ancol--7 ")
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    startActivity(navController.context, intent, null)
-                }
-            )
         }
 
         Divider(
@@ -181,6 +173,8 @@ fun TripInfoContent2(navController: NavController) {
     }
 }
 
+
+
 data class TripDayData2(val title: String, val detail: String)
 
 var tripDays2 = listOf(
@@ -188,6 +182,12 @@ var tripDays2 = listOf(
         title = "Allianz Ecopark",
         detail = "Jl. Lodan Timur No.7, RW.10, Ancol, Kec. Pademangan, Jkt Utara, Daerah Khusus Ibukota Jakarta ."
     ),
+
+    TripDayData2(
+        title = "Website Resmi",
+        detail = "https://www.ancol.com/unit-rekreasi/ecopark-ancol--7"
+    ),
+
     TripDayData2(
         title = "Deskripsi",
         detail = "Ecopark Ancol memiliki luas lahan hampir 34 hektar merupakan kawasan hasil dari mengalihfungsikan Padang Golf Ancol menjadi sebuah sarana rekreasi terbaru yang menawarkan nilai-nilai edukasi (edutainment) dan petualangan (adventure) dengan pendekatan green lifestyle, menjadi ruang terbuka bagi pengunjung Ancol Taman Impian untuk mengeksplorasi pengetahuan botani dan rekreasi luar ruang.\n" +
@@ -201,7 +201,10 @@ var tripDays2 = listOf(
 )
 
 @Composable
-fun TripDayContent2(day: TripDayData2) {
+fun TripDayContent2(day: TripDayData2, launcher: ActivityResultLauncher<Intent>) {
+    val uri = Uri.parse(day.detail)
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -214,20 +217,30 @@ fun TripDayContent2(day: TripDayData2) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = day.detail,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            lineHeight = 18.sp
-        )
+        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+                modifier = Modifier.clickable { launcher.launch(intent) }
+            )
+        } else {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+            )
+        }
     }
 }
 
+
+
 @Composable
-fun TripDataItem2(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier.clickable { onClick() }
-    ) {
+fun TripDataItem2(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier) {
+    Row() {
         Icon(
             modifier = Modifier
                 .padding(8.dp)
@@ -254,6 +267,7 @@ fun TripDataItem2(imageVector: ImageVector, title: String, subtitle: String, mod
         }
     }
 }
+
 
 @Composable
 fun LocationChip2(text: String) {

@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -30,7 +29,6 @@ import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.OpenInBrowser
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,9 +45,17 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.insets.statusBarsPadding
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
 
 @Composable
-fun DetailScreen5(navController: NavController) {
+fun DetailScreen5(navController: NavController, activityResultRegistry: ActivityResultRegistry) {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+
+    }
+
     LazyColumn() {
         item {
             DetailHeader5(navController)
@@ -57,8 +63,9 @@ fun DetailScreen5(navController: NavController) {
         }
 
         itemsIndexed(tripDays5) { _, data ->
-            TripDayContent5(data)
+            TripDayContent5(data, launcher)
         }
+
     }
 }
 
@@ -112,7 +119,7 @@ fun TripInfoContent5(navController: NavController) {
             .padding(10.dp)
     ) {
         Row {
-            LocationChip5(text = "Jl. Harsono RM No.1, Ragunan, Jakarta Selatan")
+            LocationChip4(text = "Jl. Harsono RM No.1, Ragunan, Jakarta Selatan")
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Default.Star, contentDescription = "",
@@ -128,7 +135,6 @@ fun TripInfoContent5(navController: NavController) {
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
             )
-
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -138,7 +144,6 @@ fun TripInfoContent5(navController: NavController) {
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
         )
-
 
         Divider(
             color = Color(0xFFECECEE),
@@ -150,29 +155,16 @@ fun TripInfoContent5(navController: NavController) {
                 imageVector = Icons.Default.CalendarToday,
                 title = "Waktu Operasional",
                 subtitle = "Selasa - Minggu\n07:00 - 16:00 WIB",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier
             )
 
             TripDataItem5(
                 imageVector = Icons.Default.AttachMoney,
                 title = "Biaya masuk",
-                subtitle = "Rp. 3000 -\nRp. 15.000",
-                modifier = Modifier,
-                onClick = {}
+                subtitle = "Rp. 3000 s/d\nRp. 15.000",
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
 
-            TripDataItem5(
-                imageVector = Icons.Default.OpenInBrowser,
-                title = "Website Resmi",
-                subtitle = "ragunanzoo.go.id",
-                modifier = Modifier,
-                onClick = {
-                    val uri = Uri.parse("https://ragunanzoo.jakarta.go.id/language/en/")
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    startActivity(navController.context, intent, null)
-                }
-            )
         }
 
         Divider(
@@ -182,6 +174,8 @@ fun TripInfoContent5(navController: NavController) {
     }
 }
 
+
+
 data class TripDayData5(val title: String, val detail: String)
 
 var tripDays5 = listOf(
@@ -189,6 +183,12 @@ var tripDays5 = listOf(
         title = "Kebun Binatang Ragunan",
         detail = "Jl. Harsono RM No.1, Ragunan, Ps. Minggu, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta ."
     ),
+
+    TripDayData5(
+        title = "Website Resmi",
+        detail = "https://ragunanzoo.jakarta.go.id/language/en/"
+    ),
+
     TripDayData5(
         title = "Deskripsi",
         detail = "Selamat datang di Kebun Binatang Ragunan, taman seluas 147 hektar dan rumah bagi 2.000 spesimen dan ditumbuhi lebih dari 50.000 pohon yang menjadikan lingkungannya sejuk dan nyaman.\n" +
@@ -203,8 +203,12 @@ var tripDays5 = listOf(
     ),
 )
 
+
 @Composable
-fun TripDayContent5(day: TripDayData5) {
+fun TripDayContent5(day: TripDayData5, launcher: ActivityResultLauncher<Intent>) {
+    val uri = Uri.parse(day.detail)
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -217,20 +221,30 @@ fun TripDayContent5(day: TripDayData5) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = day.detail,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            lineHeight = 18.sp
-        )
+        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+                modifier = Modifier.clickable { launcher.launch(intent) }
+            )
+        } else {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+            )
+        }
     }
 }
 
+
+
 @Composable
-fun TripDataItem5(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier.clickable { onClick() }
-    ) {
+fun TripDataItem5(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier) {
+    Row() {
         Icon(
             modifier = Modifier
                 .padding(8.dp)
@@ -257,6 +271,7 @@ fun TripDataItem5(imageVector: ImageVector, title: String, subtitle: String, mod
         }
     }
 }
+
 
 @Composable
 fun LocationChip5(text: String) {

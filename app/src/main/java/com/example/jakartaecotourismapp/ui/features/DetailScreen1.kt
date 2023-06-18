@@ -29,7 +29,6 @@ import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.OpenInBrowser
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -46,9 +45,17 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.insets.statusBarsPadding
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
 
 @Composable
-fun DetailScreen1(navController: NavController) {
+fun DetailScreen1(navController: NavController, activityResultRegistry: ActivityResultRegistry) {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+
+    }
+
     LazyColumn() {
         item {
             DetailHeader(navController)
@@ -56,8 +63,9 @@ fun DetailScreen1(navController: NavController) {
         }
 
         itemsIndexed(tripDays) { _, data ->
-            TripDayContent(data)
+            TripDayContent(data, launcher)
         }
+
     }
 }
 
@@ -146,29 +154,16 @@ fun TripInfoContent(navController: NavController) {
                 imageVector = Icons.Default.CalendarToday,
                 title = "Waktu Operasional",
                 subtitle = "Senin - Jum'at\n08:00 - 18:00 WIB",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier
             )
 
             TripDataItem(
                 imageVector = Icons.Default.AttachMoney,
                 title = "Biaya masuk",
                 subtitle = "Rp. 15.000 s/d\nRp. 30.000",
-                modifier = Modifier.padding(horizontal = 8.dp),
-                onClick = {}
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
 
-            TripDataItem(
-                imageVector = Icons.Default.OpenInBrowser,
-                title = "Website Resmi",
-                subtitle = "Jakartamangrove.id",
-                modifier = Modifier,
-                onClick = {
-                    val uri = Uri.parse("https://www.jakartamangrove.id/")
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    startActivity(navController.context, intent, null)
-                }
-            )
         }
 
         Divider(
@@ -187,6 +182,12 @@ var tripDays = listOf(
         title = "TWA Mangrove Angke Kapuk",
         detail = "Jl. Garden House, Kamal Muara, Kec. Penjaringan, Jkt Utara, Daerah Khusus Ibukota Jakarta."
     ),
+
+    TripDayData(
+        title = "Website Resmi",
+        detail = "https://www.jakartamangrove.id/"
+    ),
+
     TripDayData(
         title = "Deskripsi",
         detail = "TWA Angke Kapuk merupakan bagian dari kawasan hutan Angke Kapuk yang ditetapkan berdasarkan Surat Keputusan Gubernur Jenderal Hindia Belanda Nomor 24 tanggal 1 Juni 1939 dengan luasan 99,82 Ha. Tipe ekosistem yang menjadi habitat berbagai jenis burung air ini adalah ekosistem mangrove. Ijin Pengusahaan Pariwisata Alam TWA Angke Kapuk diberikan kepada PT. MURINDRA KARYA LESTARI sejak 1997 dengan tujuan mengembangkan TWA Angke Kapuk sebagai sarana pariwisata alam sekaligus mempertahankan kelestarian fungsi mangrove sebagai sistem penyangga kehidupan."
@@ -194,7 +195,10 @@ var tripDays = listOf(
 )
 
 @Composable
-fun TripDayContent(day: TripDayData) {
+fun TripDayContent(day: TripDayData, launcher: ActivityResultLauncher<Intent>) {
+    val uri = Uri.parse(day.detail)
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -207,20 +211,30 @@ fun TripDayContent(day: TripDayData) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = day.detail,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            lineHeight = 18.sp
-        )
+        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+                modifier = Modifier.clickable { launcher.launch(intent) }
+            )
+        } else {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+            )
+        }
     }
 }
 
+
+
 @Composable
-fun TripDataItem(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier.clickable { onClick() }
-    ) {
+fun TripDataItem(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier) {
+    Row() {
         Icon(
             modifier = Modifier
                 .padding(8.dp)

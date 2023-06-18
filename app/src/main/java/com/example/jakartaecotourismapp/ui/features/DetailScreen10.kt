@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -30,7 +29,6 @@ import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.OpenInBrowser
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,9 +45,17 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.insets.statusBarsPadding
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
 
 @Composable
-fun DetailScreen10(navController: NavController) {
+fun DetailScreen10(navController: NavController, activityResultRegistry: ActivityResultRegistry) {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+
+    }
+
     LazyColumn() {
         item {
             DetailHeader10(navController)
@@ -57,8 +63,9 @@ fun DetailScreen10(navController: NavController) {
         }
 
         itemsIndexed(tripDays10) { _, data ->
-            TripDayContent10(data)
+            TripDayContent10(data, launcher)
         }
+
     }
 }
 
@@ -97,7 +104,7 @@ fun DetailHeader10(navController: NavController) {
                     .align(Alignment.TopEnd)
                     .padding(16.dp)
             ) {
-                val uri = Uri.parse("https://goo.gl/maps/HYP9BdqyzFxVArvu6")
+                val uri = Uri.parse("https://goo.gl/maps/i74yxNMWHu9XW7wdA")
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(navController.context, intent, null)
             }
@@ -128,7 +135,6 @@ fun TripInfoContent10(navController: NavController) {
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
             )
-
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -138,7 +144,6 @@ fun TripInfoContent10(navController: NavController) {
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
         )
-
 
         Divider(
             color = Color(0xFFECECEE),
@@ -150,29 +155,16 @@ fun TripInfoContent10(navController: NavController) {
                 imageVector = Icons.Default.CalendarToday,
                 title = "Waktu Operasional",
                 subtitle = "Senin - Minggu\n08:00 - 17:00 WIB",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier
             )
 
             TripDataItem10(
                 imageVector = Icons.Default.AttachMoney,
                 title = "Biaya masuk",
                 subtitle = "Gratis",
-                modifier = Modifier,
-                onClick = {}
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
 
-            TripDataItem10(
-                imageVector = Icons.Default.OpenInBrowser,
-                title = "Website Resmi",
-                subtitle = "Tebetecopark.id",
-                modifier = Modifier,
-                onClick = {
-                    val uri = Uri.parse("https://tebetecopark.id/")
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    startActivity(navController.context, intent, null)
-                }
-            )
         }
 
         Divider(
@@ -182,12 +174,19 @@ fun TripInfoContent10(navController: NavController) {
     }
 }
 
+
+
 data class TripDayData10(val title: String, val detail: String)
 
 var tripDays10 = listOf(
     TripDayData10(
         title = "Tebet Eco Park",
         detail = "Jl. Tebet Barat Raya, RT.1/RW.10, Tebet Bar., Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta."
+    ),
+
+    TripDayData10(
+        title = "Website Resmi",
+        detail = "https://tebetecopark.id/"
     ),
 
     TripDayData10(
@@ -201,7 +200,10 @@ var tripDays10 = listOf(
 )
 
 @Composable
-fun TripDayContent10(day: TripDayData10) {
+fun TripDayContent10(day: TripDayData10, launcher: ActivityResultLauncher<Intent>) {
+    val uri = Uri.parse(day.detail)
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -214,20 +216,30 @@ fun TripDayContent10(day: TripDayData10) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = day.detail,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            lineHeight = 18.sp
-        )
+        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+                modifier = Modifier.clickable { launcher.launch(intent) }
+            )
+        } else {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+            )
+        }
     }
 }
 
+
+
 @Composable
-fun TripDataItem10(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier.clickable { onClick() }
-    ) {
+fun TripDataItem10(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier) {
+    Row() {
         Icon(
             modifier = Modifier
                 .padding(8.dp)
@@ -254,6 +266,7 @@ fun TripDataItem10(imageVector: ImageVector, title: String, subtitle: String, mo
         }
     }
 }
+
 
 @Composable
 fun LocationChip10(text: String) {

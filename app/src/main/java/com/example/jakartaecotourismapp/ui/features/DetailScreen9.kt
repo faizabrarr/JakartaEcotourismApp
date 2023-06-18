@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -45,9 +45,17 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.insets.statusBarsPadding
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
 
 @Composable
-fun DetailScreen9(navController: NavController) {
+fun DetailScreen9(navController: NavController, activityResultRegistry: ActivityResultRegistry) {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+
+    }
+
     LazyColumn() {
         item {
             DetailHeader9(navController)
@@ -55,8 +63,9 @@ fun DetailScreen9(navController: NavController) {
         }
 
         itemsIndexed(tripDays9) { _, data ->
-            TripDayContent9(data)
+            TripDayContent9(data, launcher)
         }
+
     }
 }
 
@@ -126,7 +135,6 @@ fun TripInfoContent9(navController: NavController) {
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
             )
-
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -136,7 +144,6 @@ fun TripInfoContent9(navController: NavController) {
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
         )
-
 
         Divider(
             color = Color(0xFFECECEE),
@@ -151,14 +158,13 @@ fun TripInfoContent9(navController: NavController) {
                 modifier = Modifier
             )
 
-            Spacer(modifier = Modifier.width(35.dp))
-
             TripDataItem9(
                 imageVector = Icons.Default.AttachMoney,
                 title = "Biaya masuk",
                 subtitle = "Gratis",
-                modifier = Modifier.padding(50.dp)
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
+
         }
 
         Divider(
@@ -167,6 +173,8 @@ fun TripInfoContent9(navController: NavController) {
         )
     }
 }
+
+
 
 data class TripDayData9(val title: String, val detail: String)
 
@@ -184,7 +192,10 @@ var tripDays9 = listOf(
 )
 
 @Composable
-fun TripDayContent9(day: TripDayData9) {
+fun TripDayContent9(day: TripDayData9, launcher: ActivityResultLauncher<Intent>) {
+    val uri = Uri.parse(day.detail)
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -197,18 +208,30 @@ fun TripDayContent9(day: TripDayData9) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = day.detail,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            lineHeight = 18.sp
-        )
+        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+                modifier = Modifier.clickable { launcher.launch(intent) }
+            )
+        } else {
+            Text(
+                text = day.detail,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 18.sp,
+            )
+        }
     }
 }
 
+
+
 @Composable
 fun TripDataItem9(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier) {
-    Row {
+    Row() {
         Icon(
             modifier = Modifier
                 .padding(8.dp)
@@ -235,6 +258,7 @@ fun TripDataItem9(imageVector: ImageVector, title: String, subtitle: String, mod
         }
     }
 }
+
 
 @Composable
 fun LocationChip9(text: String) {
