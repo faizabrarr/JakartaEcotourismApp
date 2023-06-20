@@ -2,7 +2,6 @@ package com.example.jakartaecotourismapp.ui.features
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,14 +13,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AirplanemodeActive
-import androidx.compose.material.icons.filled.Business
-import androidx.compose.material.icons.filled.DirectionsCar
-import androidx.compose.material.icons.filled.LocalShipping
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +41,7 @@ fun HomeScreen(navController: NavController) {
         }
         item {
             Text(
-                text = "JAKARTA ECOTOURISM TRIP IDEAS",
+                text = "DESTINASI EKOWISATA DI JAKARTA",
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp,
@@ -107,7 +100,7 @@ fun HomeHeader() {
             )
 
             Text(
-                text = "Where do you want to go today ?",
+                text = "Mau kemana anda hari ini ?",
                 fontWeight = FontWeight.Light,
                 fontSize = 18.sp,
                 lineHeight = 24.sp,

@@ -1,11 +1,15 @@
+@file:OptIn(ExperimentalPagerApi::class)
+
 package com.example.jakartaecotourismapp.ui.features
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.BorderStroke
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,10 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -27,29 +28,58 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.lerp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
-import com.google.accompanist.coil.rememberCoilPainter
+import com.example.jakartaecotourismapp.R
+import com.example.jakartaecotourismapp.ui.model.ImageData
+import com.example.jakartaecotourismapp.ui.model.LocationChip
+import com.example.jakartaecotourismapp.ui.model.TopButton
+import com.example.jakartaecotourismapp.ui.model.TripDataItem
+import com.example.jakartaecotourismapp.ui.model.TripDayContent
+import com.example.jakartaecotourismapp.ui.model.TripDayData
 import com.google.accompanist.insets.statusBarsPadding
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.ActivityResultRegistry
-import androidx.activity.result.contract.ActivityResultContracts
+import com.google.accompanist.pager.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.yield
+import kotlin.math.absoluteValue
 
+private val imageList = listOf(
+    ImageData(
+        R.drawable.d1
+    ),
+    ImageData(
+        R.drawable.d2
+    ),
+    ImageData(
+        R.drawable.d3
+    ),
+    ImageData(
+        R.drawable.d4
+    ),
+    ImageData(
+        R.drawable.d5
+    ),
+    ImageData(
+        R.drawable.d6
+    ),
+)
+
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun DetailScreen4(navController: NavController, activityResultRegistry: ActivityResultRegistry) {
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
@@ -58,67 +88,130 @@ fun DetailScreen4(navController: NavController, activityResultRegistry: Activity
 
     LazyColumn() {
         item {
-            DetailHeader4(navController)
-            TripInfoContent4(navController)
+            ViewPagerSlider(navController)
+            TripInfoContent(navController)
         }
 
-        itemsIndexed(tripDays4) { _, data ->
-            TripDayContent4(data, launcher)
+        itemsIndexed(tripDays) { _, data ->
+            TripDayContent(data, launcher)
         }
 
     }
 }
 
-
+@ExperimentalPagerApi
 @Composable
-fun DetailHeader4(navController: NavController) {
-    val detailHeaderImageUrl = "https://www.ancol.com/blog/wp-content/uploads/2022/03/wisata-pantai-di-jakarta.jpg"
-    Box() {
-        Image(
-            painter = rememberCoilPainter(request = detailHeaderImageUrl),
-            contentDescription = "",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp)
-        )
+private fun ViewPagerSlider(navController: NavController) {
+    val pagerState = rememberPagerState(
+        pageCount = imageList.size,
+        initialPage = 0
+    )
 
-        Box(
+    LaunchedEffect(Unit) {
+        while (true) {
+            yield()
+            delay(4000)
+            pagerState.animateScrollToPage(
+                page = (pagerState.currentPage + 1) % (pagerState.pageCount),
+                animationSpec = tween(600)
+            )
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .statusBarsPadding()
+            .fillMaxWidth()
+    ) {
+        // Gambar slide
+        HorizontalPager(state = pagerState, modifier = Modifier) { page ->
+            Card(
+                modifier = Modifier
+                    .graphicsLayer {
+                        val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+
+                        lerp(
+                            start = 0.85f,
+                            stop = 1f,
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        ).also { scale ->
+                            scaleX = scale
+                            scaleY = scale
+                        }
+                        alpha = lerp(
+                            start = 0.5f,
+                            stop = 1f,
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        )
+                    }
+                    .fillMaxWidth()
+            ) {
+                val newKids = imageList[page]
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.White)
+                ) {
+                    Image(
+                        painter = painterResource(id = newKids.imgUri),
+                        contentDescription = "Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Column(
+                        modifier = Modifier
+                            .align(Alignment.BottomStart)
+                            .padding(15.dp)
+                    ) {
+                        // Konten di bagian bawah gambar slide
+                    }
+                }
+            }
+        }
+
+        // TopButton pertama
+        TopButton(
+            imageVector = Icons.Default.ArrowBack,
             modifier = Modifier
-                .statusBarsPadding()
-                .fillMaxWidth()
+                .align(Alignment.TopStart)
+                .padding(16.dp)
         ) {
-            TopButton4(
-                imageVector = Icons.Default.ArrowBack,
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(16.dp)
-            ) {
-                navController.popBackStack()
-            }
-
-            TopButton4(
-                imageVector = Icons.Default.Map,
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(16.dp)
-            ) {
-                val uri = Uri.parse("https://goo.gl/maps/aCp5Apx77NnxGh2i9")
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(navController.context, intent, null)
-            }
+            navController.popBackStack()
         }
+
+        // TopButton kedua
+        TopButton(
+            imageVector = Icons.Default.Map,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(16.dp)
+        ) {
+            val uri = Uri.parse("https://goo.gl/maps/aCp5Apx77NnxGh2i9")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(navController.context, intent, null)
+        }
+
+        // Horizontal dot indicator
+        HorizontalPagerIndicator(
+            pagerState = pagerState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(16.dp)
+        )
     }
 }
 
+
+
 @Composable
-fun TripInfoContent4(navController: NavController) {
+private fun TripInfoContent(navController: NavController) {
     Column(
         modifier = Modifier
             .padding(10.dp)
     ) {
         Row {
-            LocationChip4(text = "Jl. Kw. Wisata Ancol, Ancol,Jakarta Utara")
+            LocationChip(text = "Jl. Kw. Wisata Ancol, Ancol, Jakarta Utara")
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Default.Star, contentDescription = "",
@@ -150,14 +243,14 @@ fun TripInfoContent4(navController: NavController) {
         )
 
         Row(Modifier.align(Alignment.Start)) {
-            TripDataItem4(
+            TripDataItem(
                 imageVector = Icons.Default.CalendarToday,
                 title = "Waktu Operasional",
                 subtitle = "Senin - Minggu\n06:00 - 24:00 WIB",
                 modifier = Modifier
             )
 
-            TripDataItem4(
+            TripDataItem(
                 imageVector = Icons.Default.AttachMoney,
                 title = "Biaya masuk",
                 subtitle = "Rp. 25.000\n(Biaya masuk\nkawasan ancol)",
@@ -173,22 +266,18 @@ fun TripInfoContent4(navController: NavController) {
     }
 }
 
-
-
-data class TripDayData4(val title: String, val detail: String)
-
-var tripDays4 = listOf(
-    TripDayData4(
+private var tripDays = listOf(
+    TripDayData(
         title = "Pantai Ancol",
         detail = "Jl. Kw. Wisata Ancol, Ancol, Kec. Pademangan, Jkt Utara, Daerah Khusus Ibukota Jakarta ."
     ),
 
-    TripDayData4(
+    TripDayData(
         title = "Website Resmi",
         detail = "https://www.ancol.com/unit-rekreasi/ancol--1"
     ),
 
-    TripDayData4(
+    TripDayData(
         title = "Deskripsi",
         detail = "Ancol Taman Impian mempunyai pantai yang indah yang merupakan destinasi wisata pantai dalam kota Jakarta. Pengunjung kawasan Ancol dapat menikmati suasana segar di area Pantai Lagoon, Festival, Indah, Beach Pool dan Carnaval, serta Danau Impian, sepanjang kurang lebih 6,5 km. Wisata pantai ini semakin sempurna dengan adanya promenade hampir di sepanjang pantai serta fasilitas kuliner yang lengkap, antara lain: Jimbaran Resto, Le Bridge, Starbucks, Segarra, Talaga Sampireun dan lain-lain. Hal tersebut menjadikan wisata pantai Ancol ini lebih menarik untuk dikunjungi.\n" +
                 "\n" +
@@ -199,114 +288,3 @@ var tripDays4 = listOf(
                 "Wahana kereta tersebut juga ramah bagi difable atau orang berkebutuhan khusus. Di salah satu gerbongnya dapat dikhususkan bagi warga difable. Semua wisatawan tetap bisa menikmati wahana ini tanpa bayar.\n"
     ),
 )
-
-@Composable
-fun TripDayContent4(day: TripDayData4, launcher: ActivityResultLauncher<Intent>) {
-    val uri = Uri.parse(day.detail)
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-
-    Column(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        Text(
-            text = day.title,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.ExtraBold,
-            letterSpacing = 0.75.sp
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
-            Text(
-                text = day.detail,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light,
-                lineHeight = 18.sp,
-                modifier = Modifier.clickable { launcher.launch(intent) }
-            )
-        } else {
-            Text(
-                text = day.detail,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light,
-                lineHeight = 18.sp,
-            )
-        }
-    }
-}
-
-
-
-@Composable
-fun TripDataItem4(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier) {
-    Row() {
-        Icon(
-            modifier = Modifier
-                .padding(8.dp)
-                .clip(CircleShape)
-                .background(Color(0xFFF5F6FF))
-                .size(32.dp)
-                .padding(8.dp),
-            imageVector = imageVector,
-            contentDescription = ""
-        )
-
-        Column {
-            Text(
-                text = title,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.ExtraBold
-            )
-
-            Text(
-                text = subtitle,
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Normal
-            )
-        }
-    }
-}
-
-
-@Composable
-fun LocationChip4(text: String) {
-    Row(
-        modifier = Modifier
-            .clip(RoundedCornerShape(6.dp))
-            .background(Color(0xFFFBF110))
-            .padding(horizontal = 4.dp, vertical = 1.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Default.LocationOn,
-            contentDescription = "",
-            modifier = Modifier
-                .padding(end = 4.dp)
-                .size(12.dp)
-                .align(Alignment.CenterVertically)
-        )
-
-        Text(
-            text = text,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 13.sp,
-            color = Color.Black,
-        )
-    }
-}
-
-@Composable
-fun TopButton4(imageVector: ImageVector, modifier: Modifier, clickListener: () -> Unit) {
-    Button(
-        onClick = { clickListener() },
-        border = BorderStroke(2.dp, Color(0xFFEAFBFF)),
-        shape = CircleShape,
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color(0xDDF6F9FF),
-            contentColor = Color(0xFF3562D7)
-        ),
-        modifier = modifier.size(48.dp)
-    ) {
-        Icon(imageVector = imageVector, contentDescription = "")
-    }
-}

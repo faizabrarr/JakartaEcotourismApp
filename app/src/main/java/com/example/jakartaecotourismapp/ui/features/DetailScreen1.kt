@@ -1,11 +1,15 @@
+@file:OptIn(ExperimentalPagerApi::class)
+
 package com.example.jakartaecotourismapp.ui.features
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.BorderStroke
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,10 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -27,28 +28,56 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.lerp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
-import com.google.accompanist.coil.rememberCoilPainter
+import com.example.jakartaecotourismapp.R
+import com.example.jakartaecotourismapp.ui.model.ImageData
+import com.example.jakartaecotourismapp.ui.model.LocationChip
+import com.example.jakartaecotourismapp.ui.model.TopButton
+import com.example.jakartaecotourismapp.ui.model.TripDataItem
+import com.example.jakartaecotourismapp.ui.model.TripDayContent
+import com.example.jakartaecotourismapp.ui.model.TripDayData
 import com.google.accompanist.insets.statusBarsPadding
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.ActivityResultRegistry
-import androidx.activity.result.contract.ActivityResultContracts
+import com.google.accompanist.pager.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.yield
+import kotlin.math.absoluteValue
+
+private val imageList = listOf(
+    ImageData(
+        R.drawable.a1
+    ),
+    ImageData(
+        R.drawable.a2
+    ),
+    ImageData(
+        R.drawable.a3
+    ),
+    ImageData(
+        R.drawable.a4
+    ),
+    ImageData(
+        R.drawable.a5
+    ),
+    ImageData(
+        R.drawable.a6
+    ),
+)
 
 @Composable
 fun DetailScreen1(navController: NavController, activityResultRegistry: ActivityResultRegistry) {
@@ -58,7 +87,7 @@ fun DetailScreen1(navController: NavController, activityResultRegistry: Activity
 
     LazyColumn() {
         item {
-            DetailHeader(navController)
+            ViewPagerSlider(navController)
             TripInfoContent(navController)
         }
 
@@ -69,50 +98,113 @@ fun DetailScreen1(navController: NavController, activityResultRegistry: Activity
     }
 }
 
-
+@ExperimentalPagerApi
 @Composable
-fun DetailHeader(navController: NavController) {
-    val detailHeaderImageUrl = "https://www.jakartamangrove.id/assets/images/img-0307-copy-2000x1333.jpg"
-    Box() {
-        Image(
-            painter = rememberCoilPainter(request = detailHeaderImageUrl),
-            contentDescription = "",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp)
-        )
+private fun ViewPagerSlider(navController: NavController) {
+    val pagerState = rememberPagerState(
+        pageCount = imageList.size,
+        initialPage = 0
+    )
 
-        Box(
-            modifier = Modifier
-                .statusBarsPadding()
-                .fillMaxWidth()
-        ) {
-            TopButton(
-                imageVector = Icons.Default.ArrowBack,
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(16.dp)
-            ) {
-                navController.popBackStack()
-            }
+    LaunchedEffect(Unit) {
+        while (true) {
+            yield()
+            delay(4000)
+            pagerState.animateScrollToPage(
+                page = (pagerState.currentPage + 1) % (pagerState.pageCount),
+                animationSpec = tween(600)
+            )
+        }
+    }
 
-            TopButton(
-                imageVector = Icons.Default.Map,
+    Box(
+        modifier = Modifier
+            .statusBarsPadding()
+            .fillMaxWidth()
+    ) {
+        // Gambar slide
+        HorizontalPager(state = pagerState, modifier = Modifier) { page ->
+            Card(
                 modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(16.dp)
+                    .graphicsLayer {
+                        val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+
+                        lerp(
+                            start = 0.85f,
+                            stop = 1f,
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        ).also { scale ->
+                            scaleX = scale
+                            scaleY = scale
+                        }
+                        alpha = lerp(
+                            start = 0.5f,
+                            stop = 1f,
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        )
+                    }
+                    .fillMaxWidth()
             ) {
-                val uri = Uri.parse("https://goo.gl/maps/dE1xfJmgkZyNB4qD6")
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(navController.context, intent, null)
+                val newKids = imageList[page]
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.White)
+                ) {
+                    Image(
+                        painter = painterResource(id = newKids.imgUri),
+                        contentDescription = "Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Column(
+                        modifier = Modifier
+                            .align(Alignment.BottomStart)
+                            .padding(15.dp)
+                    ) {
+                        // Konten di bagian bawah gambar slide
+                    }
+                }
             }
         }
+
+        // TopButton pertama
+        TopButton(
+            imageVector = Icons.Default.ArrowBack,
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(16.dp)
+        ) {
+            navController.popBackStack()
+        }
+
+        // TopButton kedua
+        TopButton(
+            imageVector = Icons.Default.Map,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(16.dp)
+        ) {
+            val uri = Uri.parse("https://goo.gl/maps/dE1xfJmgkZyNB4qD6")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(navController.context, intent, null)
+        }
+
+        // Horizontal dot indicator
+        HorizontalPagerIndicator(
+            pagerState = pagerState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(16.dp)
+        )
     }
 }
 
+
+
 @Composable
-fun TripInfoContent(navController: NavController) {
+private fun TripInfoContent(navController: NavController) {
     Column(
         modifier = Modifier
             .padding(10.dp)
@@ -173,11 +265,7 @@ fun TripInfoContent(navController: NavController) {
     }
 }
 
-
-
-data class TripDayData(val title: String, val detail: String)
-
-var tripDays = listOf(
+private var tripDays = listOf(
     TripDayData(
         title = "TWA Mangrove Angke Kapuk",
         detail = "Jl. Garden House, Kamal Muara, Kec. Penjaringan, Jkt Utara, Daerah Khusus Ibukota Jakarta."
@@ -193,114 +281,3 @@ var tripDays = listOf(
         detail = "TWA Angke Kapuk merupakan bagian dari kawasan hutan Angke Kapuk yang ditetapkan berdasarkan Surat Keputusan Gubernur Jenderal Hindia Belanda Nomor 24 tanggal 1 Juni 1939 dengan luasan 99,82 Ha. Tipe ekosistem yang menjadi habitat berbagai jenis burung air ini adalah ekosistem mangrove. Ijin Pengusahaan Pariwisata Alam TWA Angke Kapuk diberikan kepada PT. MURINDRA KARYA LESTARI sejak 1997 dengan tujuan mengembangkan TWA Angke Kapuk sebagai sarana pariwisata alam sekaligus mempertahankan kelestarian fungsi mangrove sebagai sistem penyangga kehidupan."
     ),
 )
-
-@Composable
-fun TripDayContent(day: TripDayData, launcher: ActivityResultLauncher<Intent>) {
-    val uri = Uri.parse(day.detail)
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-
-    Column(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        Text(
-            text = day.title,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.ExtraBold,
-            letterSpacing = 0.75.sp
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
-            Text(
-                text = day.detail,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light,
-                lineHeight = 18.sp,
-                modifier = Modifier.clickable { launcher.launch(intent) }
-            )
-        } else {
-            Text(
-                text = day.detail,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light,
-                lineHeight = 18.sp,
-            )
-        }
-    }
-}
-
-
-
-@Composable
-fun TripDataItem(imageVector: ImageVector, title: String, subtitle: String, modifier: Modifier) {
-    Row() {
-        Icon(
-            modifier = Modifier
-                .padding(8.dp)
-                .clip(CircleShape)
-                .background(Color(0xFFF5F6FF))
-                .size(32.dp)
-                .padding(8.dp),
-            imageVector = imageVector,
-            contentDescription = ""
-        )
-
-        Column {
-            Text(
-                text = title,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.ExtraBold
-            )
-
-            Text(
-                text = subtitle,
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Normal
-            )
-        }
-    }
-}
-
-
-@Composable
-fun LocationChip(text: String) {
-    Row(
-        modifier = Modifier
-            .clip(RoundedCornerShape(6.dp))
-            .background(Color(0xFFFBF110))
-            .padding(horizontal = 4.dp, vertical = 1.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Default.LocationOn,
-            contentDescription = "",
-            modifier = Modifier
-                .padding(end = 4.dp)
-                .size(12.dp)
-                .align(Alignment.CenterVertically)
-        )
-
-        Text(
-            text = text,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 13.sp,
-            color = Color.Black,
-        )
-    }
-}
-
-@Composable
-fun TopButton(imageVector: ImageVector, modifier: Modifier, clickListener: () -> Unit) {
-    Button(
-        onClick = { clickListener() },
-        border = BorderStroke(2.dp, Color(0xFFEAFBFF)),
-        shape = CircleShape,
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color(0xDDF6F9FF),
-            contentColor = Color(0xFF3562D7)
-        ),
-        modifier = modifier.size(48.dp)
-    ) {
-        Icon(imageVector = imageVector, contentDescription = "")
-    }
-}
