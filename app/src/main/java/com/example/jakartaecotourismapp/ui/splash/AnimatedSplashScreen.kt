@@ -66,6 +66,7 @@ fun Splash(alpha : Float) {
         Text(
             modifier = Modifier
                 .align(alignment = Alignment.Center)
+                .alpha(alpha = alpha)
                 .padding(top = 225.dp),
             text = "Muhammad Faiz Abrar Fatah",
             color = Color.Black,
@@ -74,6 +75,7 @@ fun Splash(alpha : Float) {
         Text(
             modifier = Modifier
                 .align(alignment = Alignment.Center)
+                .alpha(alpha = alpha)
                 .padding(top = 275.dp),
             text = "50420818",
             color = Color.Black,
