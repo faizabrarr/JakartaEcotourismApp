@@ -24,6 +24,7 @@ import com.example.jakartaecotourismapp.ui.features.DetailScreen7
 import com.example.jakartaecotourismapp.ui.features.DetailScreen8
 import com.example.jakartaecotourismapp.ui.features.DetailScreen9
 import com.example.jakartaecotourismapp.ui.features.HomeScreen
+import com.example.jakartaecotourismapp.ui.splash.AnimatedSplashScreen
 import com.example.jakartaecotourismapp.ui.theme.JakartaEcotourismAppTheme
 import com.google.accompanist.insets.ProvideWindowInsets
 
@@ -33,19 +34,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             JakartaEcotourismAppTheme {
                 val navController = rememberNavController()
-
                 ProvideWindowInsets() {
-
-                    // A surface container using the 'background' color from the theme
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-
                         NavHost(
                             navController = navController,
-                            startDestination = "home"
+                            startDestination = "splash"
                         ) {
+                            composable("splash") {
+                                AnimatedSplashScreen(navController)
+                            }
 
                             composable("home") {
                                 HomeScreen(navController)
@@ -99,21 +99,5 @@ class MainActivity : ComponentActivity() {
 
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    JakartaEcotourismAppTheme {
-        Greeting("Android")
     }
 }
