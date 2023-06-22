@@ -282,5 +282,6 @@ private var tripDays = listOf(
         detail = "Taman Suropati yang terletak di sisi utara Jl Diponegoro, Menteng, Jakarta Pusat. Taman ini terkenal bukan hanya karena keindahannya tetapi juga karena sejarahnya. Sebelumya Taman ini bernama Burgemeester Bisschopsplein dinamakan sesuai dengan nama walikota Jakarta yang bernama G.J. Bisshop (1916-1920), kemudian diganti menjadi Taman Suropati setelah Indonesia merdeka.\n" +
                 "\n" +
                 "Taman ini juga disebut sebagai “Taman persahabatan Seniman ASEAN” karena para seniman dari 6  negara ASEAN (Thailand, Indonesia, Singapore, Malaysia, brunei Darussalam dan philiphina) menyumbangkan hasil karya mereka yang berupa patung-patung yang kemudian dijadikan monumen. Masing-masing patung punya motonya masing-masing yaitu patung hasil sumbangan seniman Thailand diberi moto Fraternity (persaudaraan), Indonesia dengan Peace (perdamaian), Singapore dengan Spirit of Asean (Semangat Asean), Malaysia dengan Peace Harmone and one, Brunei Darussalam dengan Harmony (keharmonisan) dan Philiphina dengan Rebirth (kelahiran kembali) anda dapat melihat ke 6 patung karya seni tersebut berdiri kokoh didalam taman tersebut.\n"
+
     ),
 )

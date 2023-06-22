@@ -278,6 +278,18 @@ private var tripDays = listOf(
         title = "Deskripsi",
         detail = "Taman Cattleya adalah satu dari sekian banyak Ruang Terbuka Hijau (RTH) yang dimiliki oleh Pemrov DKI Jakarta, dan menjadi salah-satu Taman Hutan Kota yang dibuka kembali di masa pandemi.\n" +
                 "\n" +
-                "Kehadiran Taman Cattleya tentu saja sangat bermanfaat bagi masyarakat Ibu Kota, ditengah situasi penatnya kemacetan, tumpukkan pekerjaan, serta polusi yang menjadi ancaman bagi kota-kota besar.\n"
+                "Kehadiran Taman Cattleya tentu saja sangat bermanfaat bagi masyarakat Ibu Kota, ditengah situasi penatnya kemacetan, tumpukkan pekerjaan, serta polusi yang menjadi ancaman bagi kota-kota besar.\n" +
+                "\n" +
+                "Sejarah Taman Cattleya\n" +
+                "\n" +
+                "Sejarah Taman Cattleya dimulai dari tahun 2001, saat kebutuhan akan Ruang Terbuka Hijau (RTH) di DKI Jakarta semakin besar.\n" +
+                "Pada mulanya, Taman Cattleya adalah sebuah perkampungan kumuh yang direncanakan pada awalnya sebagai sebuah taman yang dihiasi dengan simbol – simbol negara ASEAN.\n" +
+                "Berdasarkan hal tersebut, Taman Cattleya memiliki nama lain, yaitu:\n" +
+                "•\tTaman ASEAN\n" +
+                "•\tTaman Tomang\n" +
+                "•\tTaman Kampung Sawah\n" +
+                "\n" +
+                "Taman Cattleya selesai dibangun pada tahun 2006, namun baru diresmikan pada tahun 2007, tepatnya pada tanggal 1 Desember.\n" +
+                "Adapun sejarah penamaan Taman Cattleya mengacu kepada salah-satu jenis Anggrek, yang bernama Anggrek Cattleya.\n"
     ),
 )

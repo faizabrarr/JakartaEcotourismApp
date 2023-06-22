@@ -280,19 +280,41 @@ private var tripDays = listOf(
 
     TripDayData(
         title = "Website Resmi",
-        detail = "https://ragunanzoo.jakarta.go.id/language/en/"
+        detail = "https://ragunanzoo.jakarta.go.id/language/id/"
     ),
 
     TripDayData(
         title = "Deskripsi",
-        detail = "Selamat datang di Kebun Binatang Ragunan, taman seluas 147 hektar dan rumah bagi 2.000 spesimen dan ditumbuhi lebih dari 50.000 pohon yang menjadikan lingkungannya sejuk dan nyaman.\n" +
+        detail = "Perkampungan Budaya Betawi (PBB) merupakan embrio pusat kebudayaan Betawi, suatu tempat di mana ditumbuhkembangkan keasrian alam, tradisi Betawi yang meliputi: Keagamaan, Kebudayaan dan Kesenian Betawi.\n" +
                 "\n" +
-                "Kebun Binatang Ragunan yang terletak di Pasar Minggu, sekitar 20 Km dari pusat kota Jakarta, adalah yang termurah dan paling mudah diakses di kota ini. Satwa dan tamannya yang dikelilingi pepohonan besar menjadi daya tarik tersendiri bagi keluarga untuk piknik, terutama di akhir pekan.\n" +
+                "Ide dan keinginan untuk membangun pusat kebudayaan Betawi sesungguhnya sudah tercetus sejak tahun 90 – an. Kemudian oleh BAMUS BETAWI (Badan Musyawarah Masyarakat Betawi) periode 1996 – 2001 keinginan ini dituangkan dalam sebuah rancangan program kerja yakni ”Membangun Pusat Perkampungan Budaya Betawi”.\n" +
                 "\n" +
-                "Kita akan menemukan tempat untuk berjalan-jalan dengan pemandangan alam yang sangat damai, dan dikelilingi oleh suara burung dan owa.\n" +
+                "Desakan masyarakat Betawi yang amat kuat, dukungan tokoh-tokoh Betawi terdidik serta organisasi masyarakat ke-Betawian, bersama BAMUS BETAWI sebagai lembaga yang mengkoordinir dan mengayomi seluruh aktivitas organisasi-organisasi dan yayasan-yayasan masyarakat Betawi, akhirnya melahirkan kesepakatan. Tanpa melampaui tugas dan kewenangan Pemda DKI Jakarta pada tahun 1998, BAMUS BETAWI mengajukan proposal tentang “Pembangunan Perkampungan Budaya Betawi” dengan alternatif lokasi Setu Babakan Srengseng Sawah, Kecamatan Jagakarsa Jakarta Selatan. Usaha ini semata-mata karena semua pihak memiliki tanggung jawab moral untuk memotivasi, membina dan membangun serta sekaligus melestarikan budaya Betawi ini.\n" +
                 "\n" +
-                "Kebun Binatang Pertama didirikan pada tanggal 19 September 1864 berlokasi di Jakarta Pusat, kemudian pindah ke Jakarta Selatan pada tahun 1966.\n" +
+                "Untuk lebih memantapkan usulan BAMUS BETAWI dan kebijakan Pemda DKI Jakarta, sebelumnya pada tanggal 13 September 1997 diselenggarakan “Festival Setu Babakan / sehari di Setu Babakan” oleh Sudin Pariwisata Jakarta Selatan dan mendapat sambutan hangat dari masyarakat. Karena dalam acara tersebut dapat dilihat jelas aktivitas masyarakat dengan kekentalan budayanya mulai dari pakaian, hasil industri rumahan, buah-buahan dan lainnya. Bersamaan dengan ini pula BAMUS menyerahkan kepada masyarakat dan salah satu organisasi pendukung (SATGAS PBB) untuk menjaga dan memantau embrio PBB (sampai sekarang).\n" +
                 "\n" +
-                "Total luas saat ini lebih dari 140 hektar, awalnya direncanakan sekitar 200 hektar, guna mendapatkan lahan untuk pembangunan. Pemerintah menyadari bahwa Jakarta membutuhkan daerah resapan air dan itu sama pentingnya dengan menyediakan tempat bagi penduduk untuk menikmati alam.\n"
+                "Pada tahun 2000 Gubernur Provinsi DKI Jakarta mengeluarkan Surat Keputusan Gubernur No. 92 tahun 2000 tentang Penataan Lingkungan Perkampungan Budaya Betawi di Kelurahan Srengseng Sawah Kecamatan Jagakarsa Jakarta Selatan. Berdasarkan SK tersebut akhirnya mulailah dibangun embrio PBB pada tanggal 15 September 2000.\n" +
+                "\n" +
+                "Kemudian pada tanggal 20 Januari 2001, BAMUS BETAWI mengadakan Halal Bihalal dengan organisasi pendukung dan masyarakat Betawi pada umumnya, dan pada saat itu pulalah Gubernur Provinsi DKI Jakarta saat itu, Bpk. Sutiyoso menandatangani prasasti Pencanangan awal Perkampungan Budaya Betawi. Sementara itu Ketua Umum Bamus Betawi (Bpk.dr.H.Abdul Syukur, S.K.M.) memberi mandat kepada SATGAS PBB untuk berperan aktif mengawasi Perkampungan Budaya Betawi (terutama Setu Babakan dan Setu Mangga Bolong).\n" +
+                "\n" +
+                "Yang harus dipahami bersama:\n" +
+                "\n" +
+                "Bahwa Perkampungan Budaya Betawi dibuat bukan untuk “mengaboriginkan” kaum Betawi dan juga bukan semata-mata untuk tujuan wisata, tetapi lebih kepada pelestarian, pengembangan dan penataan Budaya Betawi.\n" +
+                "\n" +
+                "Mengingat Perkampungan Budaya Betawi semakin banyak mendapat perhatian publik, sementara payung hukum yang ada (SK Gubernur no. 92 th. 2000) belum dapat menaungi secara utuh, maka melalui usulan, saran dari berbagai pihak agar dibuat satu Perda tentang Perkampungan Budaya Betawi, maka pada tanggal 10 Maret 2005 lahirlah “Perda no. 3 th. 2005” tentang Penetapan Perkampungan Budaya Betawi di Kelurahan Srengseng Sawah Kecamatan Jagakarsa Jakarta Selatan.\n" +
+                "\n" +
+                "Melalui Perda ini diharapkan pengembangan Perkampungan Budaya Betawi dapat lebih terkoordinasi dan tertata tentu juga menjadi tanggung jawab kita bersama untuk mengawal Perda tersebut.\n" +
+                "\n" +
+                "Ke Taman Margasatwa Ragunan berarti memasuki sebuah hutan tropis mini, di dalamnya terdapat keanekaragaman hayati yang memiliki nilai konservasi tinggi dan menyimpan harapan untuk masa depan\n" +
+                "\n" +
+                "Menagapa Taman Margasatwa Ragunan?\n" +
+                "\n" +
+                "Taman Margasatwa Ragunan merupakan satu – satunya tempat masyarakat umum untuk memasuki suaka margasatwa dalam situasi yang aman, dekat serta biaya yang murah.\n" +
+                "\n" +
+                "Taman Margasatwa Ragunan memelihara berbagai koleksi satwa hidup dari berbagai wilayah Indonesia maupun negara lain.\n" +
+                "\n" +
+                "Lebih dari 3.000.000 pengunjung yang datang setiap tahunnya ke Taman Margasatwa Ragunan juga. menawarkan kesempatan untuk studi ilmiah satwa. Banyak siswa dari zoologi, ilmu kedokteran hewan menggunakan kebun binatang sebagai laboratorium mereka, atau sebuah tempat untuk melakukan penelitian praktek atau studi lapang .\n" +
+                "\n" +
+                "Taman Margasatwa Ragunan memberikan perlindungan kepada satwa secara bijaksana. Di alam bebas, satwa mungkin menghadapi ancaman seperti perburuan, pencurian , hilangnya habitat alami, polusi udara, air dll. Sebaliknya di dalam kebun binatang , satwa –satwa akan aman dari ancaman – ancaman tersebut."
     ),
 )

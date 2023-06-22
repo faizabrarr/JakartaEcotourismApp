@@ -285,8 +285,24 @@ private var tripDays = listOf(
 
     TripDayData(
         title = "Deskripsi",
-        detail = "Ide dan keinginan untuk membangun pusat kebudayaan Betawi sesungguhnya sudah tercetus sejak tahun 90 – an. Kemudian oleh BAMUS BETAWI (Badan Musyawarah Masyarakat Betawi) periode 1996 – 2001 keinginan ini dituangkan dalam sebuah rancangan program kerja yakni ”Membangun Pusat Perkampungan Budaya Betawi”.\n" +
+        detail = "Perkampungan Budaya Betawi (PBB) merupakan embrio pusat kebudayaan Betawi, suatu tempat di mana ditumbuhkembangkan keasrian alam, tradisi Betawi yang meliputi: Keagamaan, Kebudayaan dan Kesenian Betawi.\n" +
                 "\n" +
-                "Desakan masyarakat Betawi yang amat kuat, dukungan tokoh-tokoh Betawi terdidik serta organisasi masyarakat ke-Betawian, bersama BAMUS BETAWI sebagai lembaga yang mengkoordinir dan mengayomi seluruh aktivitas organisasi-organisasi dan yayasan-yayasan masyarakat Betawi, akhirnya melahirkan kesepakatan. Tanpa melampaui tugas dan kewenangan Pemda DKI Jakarta pada tahun 1998, BAMUS BETAWI mengajukan proposal tentang “Pembangunan Perkampungan Budaya Betawi” dengan alternatif lokasi Setu Babakan Srengseng Sawah, Kecamatan Jagakarsa Jakarta Selatan. Usaha ini semata-mata karena semua pihak memiliki tanggung jawab moral untuk memotivasi, membina dan membangun serta sekaligus melestarikan budaya Betawi ini.\n"
+                "Ide dan keinginan untuk membangun pusat kebudayaan Betawi sesungguhnya sudah tercetus sejak tahun 90 – an. Kemudian oleh BAMUS BETAWI (Badan Musyawarah Masyarakat Betawi) periode 1996 – 2001 keinginan ini dituangkan dalam sebuah rancangan program kerja yakni ”Membangun Pusat Perkampungan Budaya Betawi”.\n" +
+                "\n" +
+                "Desakan masyarakat Betawi yang amat kuat, dukungan tokoh-tokoh Betawi terdidik serta organisasi masyarakat ke-Betawian, bersama BAMUS BETAWI sebagai lembaga yang mengkoordinir dan mengayomi seluruh aktivitas organisasi-organisasi dan yayasan-yayasan masyarakat Betawi, akhirnya melahirkan kesepakatan. Tanpa melampaui tugas dan kewenangan Pemda DKI Jakarta pada tahun 1998, BAMUS BETAWI mengajukan proposal tentang “Pembangunan Perkampungan Budaya Betawi” dengan alternatif lokasi Setu Babakan Srengseng Sawah, Kecamatan Jagakarsa Jakarta Selatan. Usaha ini semata-mata karena semua pihak memiliki tanggung jawab moral untuk memotivasi, membina dan membangun serta sekaligus melestarikan budaya Betawi ini.\n" +
+                "\n" +
+                "Untuk lebih memantapkan usulan BAMUS BETAWI dan kebijakan Pemda DKI Jakarta, sebelumnya pada tanggal 13 September 1997 diselenggarakan “Festival Setu Babakan / sehari di Setu Babakan” oleh Sudin Pariwisata Jakarta Selatan dan mendapat sambutan hangat dari masyarakat. Karena dalam acara tersebut dapat dilihat jelas aktivitas masyarakat dengan kekentalan budayanya mulai dari pakaian, hasil industri rumahan, buah-buahan dan lainnya. Bersamaan dengan ini pula BAMUS menyerahkan kepada masyarakat dan salah satu organisasi pendukung (SATGAS PBB) untuk menjaga dan memantau embrio PBB (sampai sekarang).\n" +
+                "\n" +
+                "Pada tahun 2000 Gubernur Provinsi DKI Jakarta mengeluarkan Surat Keputusan Gubernur No. 92 tahun 2000 tentang Penataan Lingkungan Perkampungan Budaya Betawi di Kelurahan Srengseng Sawah Kecamatan Jagakarsa Jakarta Selatan. Berdasarkan SK tersebut akhirnya mulailah dibangun embrio PBB pada tanggal 15 September 2000.\n" +
+                "\n" +
+                "Kemudian pada tanggal 20 Januari 2001, BAMUS BETAWI mengadakan Halal Bihalal dengan organisasi pendukung dan masyarakat Betawi pada umumnya, dan pada saat itu pulalah Gubernur Provinsi DKI Jakarta saat itu, Bpk. Sutiyoso menandatangani prasasti Pencanangan awal Perkampungan Budaya Betawi. Sementara itu Ketua Umum Bamus Betawi (Bpk.dr.H.Abdul Syukur, S.K.M.) memberi mandat kepada SATGAS PBB untuk berperan aktif mengawasi Perkampungan Budaya Betawi (terutama Setu Babakan dan Setu Mangga Bolong).\n" +
+                "\n" +
+                "Yang harus dipahami bersama:\n" +
+                "\n" +
+                "Bahwa Perkampungan Budaya Betawi dibuat bukan untuk “mengaboriginkan” kaum Betawi dan juga bukan semata-mata untuk tujuan wisata, tetapi lebih kepada pelestarian, pengembangan dan penataan Budaya Betawi.\n" +
+                "\n" +
+                "Mengingat Perkampungan Budaya Betawi semakin banyak mendapat perhatian publik, sementara payung hukum yang ada (SK Gubernur no. 92 th. 2000) belum dapat menaungi secara utuh, maka melalui usulan, saran dari berbagai pihak agar dibuat satu Perda tentang Perkampungan Budaya Betawi, maka pada tanggal 10 Maret 2005 lahirlah “Perda no. 3 th. 2005” tentang Penetapan Perkampungan Budaya Betawi di Kelurahan Srengseng Sawah Kecamatan Jagakarsa Jakarta Selatan.\n" +
+                "\n" +
+                "Melalui Perda ini diharapkan pengembangan Perkampungan Budaya Betawi dapat lebih terkoordinasi dan tertata tentu juga menjadi tanggung jawab kita bersama untuk mengawal Perda tersebut."
     ),
 )

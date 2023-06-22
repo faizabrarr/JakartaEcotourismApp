@@ -282,6 +282,33 @@ private var tripDays = listOf(
 
     TripDayData(
         title = "Deskripsi",
-        detail = "Keberadaan Taman Nasional Kepulauan Seribu diawali dengan berbagai cerita yang menarik. Bermula dari tahun 1979, didukung oleh FAO (Food and Agriculture Organization) PBB, dilakukan kajian dan survey di Indonesia untuk menemukan satu lokasi perairan laut yang cocok dijadikan sebagai Taman Nasional laut (marine national park) pertama di Indonesia. Saat itu FAO sedang menjalankan proyek membantu under-developed country (negara belum berkembang) dalam upaya konservasi untuk pembangunan yang berkelanjutan."
+        detail = "Perjalanan Taman Nasional Kepulauan\n" +
+                "\n" +
+                "Keberadaan Taman Nasional Kepulauan Seribu diawali dengan berbagai cerita yang menarik. Bermula dari tahun 1979, didukung oleh FAO (Food and Agriculture Organization) PBB, dilakukan kajian dan survey di Indonesia untuk menemukan satu lokasi perairan laut yang cocok dijadikan sebagai Taman Nasional laut (marine national park) pertama di Indonesia. Saat itu FAO sedang menjalankan proyek membantu under-developed country (negara belum berkembang) dalam upaya konservasi untuk pembangunan yang berkelanjutan.\n" +
+                "\n" +
+                "Kajian untuk menentukan Taman Nasional Kepulauan Seribu berlangsung dari tahun 1979 sampai tahun 1981. Kajian terhadap kondisi Kepulauan Seribu berbasis pada pencarian ekosistem penting. Berdasarkan hasil kajian dan disertai pertimbangan akses yang mudah dan strategis karena berada di ibu kota Indonesia, namun mengalami tingginya ancaman terhadap sumber daya alam, maka dipilihlah Kepulauan Seribu.\n" +
+                "\n" +
+                "Setelah penentuan Kepulauan Seribu sebagai kawasan perairan laut yang dijadikan Taman Nasional laut pertama di Indonesia, pada tahun 1982 ditetapkan Cagar Alam Pulau Seribu. Penetapan Cagar Alam Pulau Seribu itu bertujuan untuk melindungi beberapa pulau dan perairan penting ekologis di Kepulauan Seribu. Saat itu, Kepulauan Seribu menghadapi ancaman yang dapat membahayakan kelangsungan ekosistem laut dan biota laut. Penangkapan ikan dengan bom dan racun sianida ditambah maraknya aktivitas pengambilan cangkang kima raksasa (Tridacna gigas) dengan mencongkel karang benar-benar menjadi tiga ancaman serius di Kepulauan Seribu.\n" +
+                "\n" +
+                "Maka ketika pada tahun yang sama, yaitu bulan Oktober 1982, diselenggarakan Kongres Taman Nasional Sedunia di Bali, menjadi kesempatan besar menyatakan Cagar Alam Kepulauan Seribu sebagai Calon Taman Nasional Kepulauan Seribu.\n" +
+                "\n" +
+                "Dalam proses penetapan dan pembentukan Taman Nasional Kepulauan Seribu, diwarnai dengan upaya meyakinkan pemerintah DKI Jakarta mengenai pentingnya keberadaan Taman Nasional Kepulauan Seribu. Tim pelaksana penetapan dan pembentukan Taman Nasional Kepulauan Seribu yang saat itu dipimpin oleh Bapak Mattheus Halim berhasil meyakinkan Pemerintah DKI Jakarta bahwa keberadaan Taman Nasional Kepulauan Seribu justru untuk mendukung pengembangan wisata bahari di Jakarta secara berkelanjutan.\n" +
+                "Pada saat itu, Kepulauan Seribu sedang menjadi target pembangunan wisata bahari yang strategis di Jakarta oleh Pemerintah DKI Jakarta. Kepulauan Seribu memang menyajikan beragam sumber daya alam laut yang potensial menjadi destinasi wisata bahari.\n" +
+                "\n" +
+                "Dalam penetapan Taman Nasional Kepulauan Seribu, tidak semua wilayah Kepulauan Seribu dijadikan Taman Nasional. Satu pertimbangan yang mendasari adalah hasil penelitian oleh tim penetapan dan pembentukan TN Kepulauan Seribu yang juga didukung hasil penelitian LIPI, bahwa kondisi keragaman jenis karang mulai dari perairan terdekat dengan daratan Jakarta menunjukkan kondisi nol keragaman, sementara semakin ke wilayah Utara Kepulauan Seribu, keragaman jenis karang semakin tinggi. Keragaman jenis karang paling tinggi ditemukan di perairan sekitar Pulau Belanda dan Pulau Kayu Angin Bira.\n" +
+                "\n" +
+                "Memperhatikan adanya indikasi potensi kawasan dan pemanfaatan SDA laut di wilayah Kepulauan Seribu yang tinggi, Pemerintah Pusat melakukan beberapa pengaturan antara lain sebagai berikut :\n" +
+                "\n" +
+                "· Keputusan Menteri Pertanian Nomor 527/Kpts/Um/7/1982 tanggal 21 Juli 1982, yang menunjukkan wilayah seluas 108.000 hektar Kepulauan Seribu sebagai Cagar Alam dengan nama Cagar Alam Laut Pulau Seribu.\n" +
+                "\n" +
+                "· Keputusan Menteri Kehutanan Nomor Ab 161/Kpts-II/95, tentang Perubahan Fungsi Cagar Alam Laut Kepulauan Seribu Seluas 108 ha menjadi Taman Nasional Laut Kepulauan Seribu.\n" +
+                "\n" +
+                "· Keputusan Direktur Taman Nasional dan Hutan Wisata Direktorat Jenderal Perlindungan Hutan dan Pelestarian Alam Departemen Kehutanan Nomor 02/VI/TN-2/SK/1986 tanggal 19 April 1986 tentang Pembagian Zona di Kawasan TNKpS.\n" +
+                "\n" +
+                "· Keputusan Menteri Kehutanan Nomor 162/Kpts-II/1995 tanggal 21 Maret 1995 tentang Perubahan Fungsi Cagar Alam Laut Kepulauan Seribu yang Terletak di Kotamadya Daerah Tingkat II Jakarta Utara Daerah Khusus Ibukota Jakarta Seluas ± 108.000 (Seratus Delapan Ribu) Hektar Menjadi Taman Nasional Laut Kepulauan Seribu.\n" +
+                "\n" +
+                "· Keputusan Menteri Kehutanan Dan Pekebunan Nomor 220/Kpts-II/2000 tanggal 2 Agustus 2000 tentang Penunjukan Kawasan Hutan Dan Perairan Di Wilayah Propinsi Daerah Khusus Ibukota Jakarta Seluas 108.475,45 (Seratus Delapan Ribu Empat Ratus Tujuh Puluh Lima, Empat Puluh Lima Perseratus) Hektar.\n" +
+                "\n" +
+                "· Keputusan Menteri Kehutanan Nomor 6310/Kpts-II/2002 tanggal 13 Juni 2002 tentang Penetapan Kawasan Pelestarian Alam Perairan Taman Nasional Laut Kepulauan Seribu Seluas 107.489 (Seratus Tujuh Ribu Empat Ratus Delapan Puluh Sembilan) Hektar, Yang Terletak Di Kabupaten Administrasi Kepulauan Seribu, Propinsi Daerah Khusus Ibukota Jakarta."
     ),
 )

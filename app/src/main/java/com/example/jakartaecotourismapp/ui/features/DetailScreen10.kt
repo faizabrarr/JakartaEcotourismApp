@@ -289,6 +289,21 @@ private var tripDays = listOf(
                 "\n" +
                 "Setiap zona TEP dirancang untuk mengambil peran penting dalam keberlangsungan lingkungan dan interaksi sosial, mulai dari menjaga kualitas alamiah lingkungan hingga meningkatkan kualitas hidup pengunjung dan masyarakat sekitarnya. Sungai yang di renaturalisasi, rawa (wetland) yang menjadi kolam retensi, konservasi tanaman dan penanaman kembali untuk mereduksi polusi, sampai berbagai ruang hijau terbuka yang berfungsi memfasilitasi masyarakat untuk berinteraksi.\n" +
                 "\n" +
-                "Lebih dari sebuah taman, Tebet Eco Park adalah ekosistem dimana alam dan manusia saling berinteraksi dan saling melindungi dalam sebuah harmoni.\n."
+                "Lebih dari sebuah taman, Tebet Eco Park adalah ekosistem dimana alam dan manusia saling berinteraksi dan saling melindungi dalam sebuah harmoni.\n." +
+                "\n" +
+                "Dalam proses pembangunan Tebet Eco Park, terdapat beberapa cerita menarik. Antara lain : \n" +
+                "\n" +
+                "Kolaborasi Multi-Lembaga Pemerintah\n" +
+                "\n" +
+                "Proses pembangunan Tebet Eco Park dikawal dengan guideline dan rekomendasi teknis yang komprehensif untuk memastikan proses konstruksi tidak mengganggu proses ekologis yang terjadi di taman. Desain ekologis yang diterapkan dalam perencanaan, harus juga diaplikasikan dalam proses eksekusi fisiknya. Dalam tahap pekerjaan pendahuluan meliputi grading tanah, pembongkaran turap PHB, maupun pruning dan seleksi pohon yang rawan tumbang, terdapat tenaga ahli yang dapat memberikan penilaian dan rekomendasi khusus terhadap masalah yang ada di lapangan sehingga tetap sesuai dengan kaidah proses konstruksi untuk memitigasi kerusakan.\n" +
+                "\n" +
+                "Revitalisasi untuk pemulihan ekologi\n" +
+                "\n" +
+                "Langkah strategis Pemerintah Provinsi DKI Jakarta merevitalisasi Taman Tebet berpihak pada ekologi dan pengembangan berkelanjutan sebagai ruang publik yang mengundang semua orang berkunjung dengan ramah dan inklusif. Revitalisasi ini mewujudkan ruang publik yang mengemban fungsi rekreatif dan edukatif dengan semangat kolaborasi dengan berbagai pihak dalam hal pendanaan dan konstruksi. Sinergi positif dalam mewujudkan taman yang representatif bagi kota Megapolitan, Jakarta.\n" +
+                "\n" +
+                "Transformasi yang mendekatkan kita dengan alam\n" +
+                "\n" +
+                "Tebet Eco Park memiliki prinsip untuk meminimalisasi pembongkaran area taman yang sebelumnya sudah rindang dan hijau dengan berbagai pohon dan vegetasi. Dalam pertimbangan desain, ekosistem hutan kota yang sudah lama berlangsung dijaga agar tidak terganggu bahkan, dimaksimalkan potensinya sebagai centerpiece atau atraksi utama dari taman. Hal ini dilakukan dengan menggunakan garis organik yang melengkung dan meliuk, berada diantara pepohonan agar tidak banyak pohon yang harus ditebang ataupun direlokasi. Paviliun utara dan selatan juga mengakomodasi pohon pohon besar agar tetap hidup tanpa harus mengubah bentuk bangunan dengan cara menyediakan void (lubang) di atap yang memungkinkan batang pohon berada di dalam bangunan, akar pohon terlindung dan tetap dapat mengambil nutrisi dari tanah, dan kanopi pohon berada di atas atap agar tetap mendapatkan cahaya matari dengan maksimal.\n"
+
     ),
 )

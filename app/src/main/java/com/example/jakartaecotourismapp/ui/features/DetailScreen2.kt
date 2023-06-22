@@ -288,6 +288,19 @@ private var tripDays = listOf(
                 "\n" +
                 "Selain Eco Care, Eco Nature, dan Eco Art, Ecopark Ancol juga akan menghadirkan zona Eco Energy.\n" +
                 "\n" +
-                "Pada keseluruhan zona ini, beragam jenis tanaman pesisir sesuai dengan kegunaannya bagi lingkungan hidup telah ditanam, sekaligus untuk menjadikan Ecopark sebagai sebuah kawasan yang hijau dan teduh, serta tempat pembelajaran botani lengkap yang menyenangkan.\n"
+                "Pada keseluruhan zona ini, beragam jenis tanaman pesisir sesuai dengan kegunaannya bagi lingkungan hidup telah ditanam, sekaligus untuk menjadikan Ecopark sebagai sebuah kawasan yang hijau dan teduh, serta tempat pembelajaran botani lengkap yang menyenangkan.\n" +
+                "\n" +
+                        "Allianz Ecopark atau Ecopark Ancol memiliki 4 Zona, yaitu :\n" +
+                "1.\tEco-Care\n" +
+                "Di Zona Eco-Care kalian akan diajak untuk melepas setres dengan berbagai permainan edukasi seru bersifat kekeluargaan. Selain itu bagi kalian yang pengen belajar cara menanam sayur atau tumbuhan lain yang baik dan benar.Di area ini kalian sekeluarga akan diajak berladang dan menyiangi tanaman di ladang. Bagi kalian yang hobi berkebun, aku jamin kalian nggak bakalan bosen di zona ini.\n" +
+                "\n" +
+                "2.\tEco-Art\n" +
+                "Di zona Eco-Art, kalian akan dimanjakan dengan berbagai pertunjukan seni dan pameran yang patut dikunjungi. Menurut sebagian orang, zona ini paling seru di Ocean Ecopark Ancol. Namun, setiap orang punya hobi yang beda-beda, jadi menurutku sih relatif. Di zona ini, kalian dalam satu jam akan dihibur oleh pertunjukan teater panggung terbuka Fantastique Magic Fountain Show yang mementaskan cerita rakyat terkenal Timun Mas dan Buto Ijo\n" +
+                "\n" +
+                "3.\tEco-Nature\n" +
+                "Sedangkan Eco-Nature akan memberi edukasi tentang berbagai jenis flora fauna unik dan hijau alam menenangkan. Kalian bisa berkenalan dengan aneka sawa yang biasanya hanya kalian lihat di TV-TV aja. Bisa dikatakan, zona ini adalah faunaland. Seperti burung kasuari, burung pelican, rusa dan kera. Wahana ini jadi satu sama Eco-Island yang berwujud sebuah danau buatan yang dihuni ribuan ikan koi, lele dan gurami.\n" +
+                "\n" +
+                "4.\tEco-Energy\n" +
+                "Terakhir adalah Eco-Energy, Mungkin zona ini pada saat ini belum selesai dibangun. Kawasan eco energy nantinya akan difokuskan untuk memperkenalkan konservasi energi dan sumber energi terbaru. Zona ini dibangan sebab di era modern ini, manusia rata-rata termanjakan dengan energi yang tak bisa diperbaharui. Dengan adanya Eco-Energy ini, diharapkan pengunjung dapat lebih memahami apa itu energi alternatif dan bagaimana penggunaannya.\n"
     ),
 )

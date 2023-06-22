@@ -284,6 +284,46 @@ private var tripDays = listOf(
 
     TripDayData(
         title = "Deskripsi",
-        detail = "TWA Angke Kapuk merupakan bagian dari kawasan hutan Angke Kapuk yang ditetapkan berdasarkan Surat Keputusan Gubernur Jenderal Hindia Belanda Nomor 24 tanggal 1 Juni 1939 dengan luasan 99,82 Ha. Tipe ekosistem yang menjadi habitat berbagai jenis burung air ini adalah ekosistem mangrove. Ijin Pengusahaan Pariwisata Alam TWA Angke Kapuk diberikan kepada PT. MURINDRA KARYA LESTARI sejak 1997 dengan tujuan mengembangkan TWA Angke Kapuk sebagai sarana pariwisata alam sekaligus mempertahankan kelestarian fungsi mangrove sebagai sistem penyangga kehidupan."
+        detail = "TWA Angke Kapuk merupakan bagian dari kawasan hutan Angke Kapuk yang ditetapkan berdasarkan Surat Keputusan Gubernur Jenderal Hindia Belanda Nomor 24 tanggal 1 Juni 1939 dengan luasan 99,82 Ha. Tipe ekosistem yang menjadi habitat berbagai jenis burung air ini adalah ekosistem mangrove. Ijin Pengusahaan Pariwisata Alam TWA Angke Kapuk diberikan kepada PT. MURINDRA KARYA LESTARI sejak 1997 dengan tujuan mengembangkan TWA Angke Kapuk sebagai sarana pariwisata alam sekaligus mempertahankan kelestarian fungsi mangrove sebagai sistem penyangga kehidupan.\nJenis-jenis fauna yang mendominasi kawasan TWA Angke Kapuk, umumnya adalah jenis-jenis burung merandai dan hampir seluruhnya merupakan satwa yang dilindungi. Beberapa jenis diantaranya adalah:\n" +
+                "\n" +
+                "· Belekok / Javan Pond Heron (Ardeola speciosa)\n" +
+                "· Belibis / Wandering Whistling Duck (Dendrocygna arcuate)\n" +
+                "· Cangak Abu / Grey Heron (Ardea cinerea)\n" +
+                "· Cekakak Sungai / Collared Kingfisher (Todirhamphus chloris)\n" +
+                "· Elang Laut Perut Putih / White-Bellied Sea Eagle (Haliaeetus leucogaster)\n" +
+                "· Elang Tiram / Osprey (Pandion haliaetus)\n" +
+                "· Gagang Bayam Timur / Pied Stilt (Himantopus leucocephalus)\n" +
+                "· Itik Benjut / Sunda Teal (Anas Gibberifrons)\n" +
+                "· Kokokan Laut / Little Heron (Butorides striatus)\n" +
+                "· Kowak Malam Abu / Black-Crowned Night Heron (Nycticorax nycticorax)\n" +
+                "· Kuntul Kerbau / Cattle Egret (Bulbucus ibis)\n" +
+                "· Kuntul Putih / Little Egret (Egretta sp.)\n" +
+                "· Pecuk Ular Asia / Oriental Darter (Anhinga melanogaster)\n" +
+                "· Raja Udang Biru / Small Blue Kingisher (Alcedo coerulescens)\n" +
+                "· Tangkar Centrong alias Murai Irian / Racket-tailed Treepie (Crypsirina temia)\n" +
+                "\n" +
+                "Selain itu terdapat pula bererapa jenis satwa lainnya diantaranya Biawak Air (Varanus Salvator), ikan Gelodok/Gelosoh (Glossogobius Giuris) dan Udang Bakau (Thalassina Anomala). \n" +
+                "\n" +
+                "Jenis-jenis mangrove yang terdapat dalam kawasan diantaranya :\n" +
+                "\n" +
+                "· Api-api (Avicennia marina)\n" +
+                "· Bakau (Rhizophora mucronata dan Rhizophora stylosa)\n" +
+                "· Bidara (Sonneratia caseolaris)\n" +
+                "· Buta-buta (Exocecaris agallocha)\n" +
+                "· Cantinggi (Ceriops sp.)\n" +
+                "· Warakas (Acrosticum areum)\n" +
+                "\n" +
+    "\nDan jenis hutan pantai/rawa, antara lain:\n" +
+            "\n" +
+            "· Bluntas (Pluchea indica)\n" +
+            "· Dadap (Erythrina variagate)\n" +
+            "· Duri Busyetan (Mimosa sp.)\n" +
+            "· Flamboyan (Delonix regia)\n" +
+            "· Kedondong Laut (Polysia frutucosa)\n" +
+            "· Ki Hujan (Samanea saman)\n" +
+            "· Ki Tower (Deris heterophyla)\n" +
+            "· Mendongan (Scripus litoralis)\n" +
+            "· Waru Laut (Hibiscus tilliaceus)\n" +
+            "\n"
     ),
 )
