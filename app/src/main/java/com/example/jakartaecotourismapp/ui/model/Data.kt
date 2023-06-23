@@ -32,6 +32,16 @@ import androidx.compose.ui.unit.sp
 
 data class ImageData(val imgUri:Int)
 
+data class HomeTripModel(
+    val id: Int,
+    val image: String,
+    val address: String,
+    val title: String,
+    val rating: Float
+)
+
+data class TripDayData(val title: String, val detail: String)
+
 @Composable
 fun TopButton(imageVector: ImageVector, modifier: Modifier, clickListener: () -> Unit) {
     Button(
@@ -139,5 +149,3 @@ fun TripDayContent(day: TripDayData, launcher: ActivityResultLauncher<Intent>) {
         }
     }
 }
-
-data class TripDayData(val title: String, val detail: String)

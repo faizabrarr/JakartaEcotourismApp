@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.jakartaecotourismapp.ui.model.HomeTripModel
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
@@ -121,14 +122,6 @@ fun HomeHeader() {
     }
 
 }
-
-data class HomeTripModel(
-    val id: Int,
-    val image: String,
-    val address: String,
-    val title: String,
-    val rating: Float
-)
 
 @Composable
 fun HomeTripItem(homeTripModel: HomeTripModel,navController: NavController, tripId: Int) {
