@@ -5,11 +5,13 @@ package com.example.jakartaecotourismapp.ui.features
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -47,12 +50,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
+import coil.compose.rememberImagePainter
 import com.example.jakartaecotourismapp.R
 import com.example.jakartaecotourismapp.ui.model.ImageData
 import com.example.jakartaecotourismapp.ui.model.LocationChip
 import com.example.jakartaecotourismapp.ui.model.TopButton
 import com.example.jakartaecotourismapp.ui.model.TripDataItem
-import com.example.jakartaecotourismapp.ui.model.TripDayContent
 import com.example.jakartaecotourismapp.ui.model.TripDayData
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.*
@@ -277,6 +280,7 @@ private var tripDays = listOf(
         title = "Taman Suropati",
         detail = "Jl. Taman Suropati No.5, RT.5/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta."
     ),
+
     TripDayData(
         title = "Deskripsi",
         detail = "Taman Suropati yang terletak di sisi utara Jl Diponegoro, Menteng, Jakarta Pusat. Taman ini terkenal bukan hanya karena keindahannya tetapi juga karena sejarahnya. Sebelumya Taman ini bernama Burgemeester Bisschopsplein dinamakan sesuai dengan nama walikota Jakarta yang bernama G.J. Bisshop (1916-1920), kemudian diganti menjadi Taman Suropati setelah Indonesia merdeka.\n" +
@@ -284,4 +288,62 @@ private var tripDays = listOf(
                 "Taman ini juga disebut sebagai “Taman persahabatan Seniman ASEAN” karena para seniman dari 6  negara ASEAN (Thailand, Indonesia, Singapore, Malaysia, brunei Darussalam dan philiphina) menyumbangkan hasil karya mereka yang berupa patung-patung yang kemudian dijadikan monumen. Masing-masing patung punya motonya masing-masing yaitu patung hasil sumbangan seniman Thailand diberi moto Fraternity (persaudaraan), Indonesia dengan Peace (perdamaian), Singapore dengan Spirit of Asean (Semangat Asean), Malaysia dengan Peace Harmone and one, Brunei Darussalam dengan Harmony (keharmonisan) dan Philiphina dengan Rebirth (kelahiran kembali) anda dapat melihat ke 6 patung karya seni tersebut berdiri kokoh didalam taman tersebut.\n"
 
     ),
+
+    TripDayData(
+        title = "Denah Lokasi",
+        detail = "https://i.imgur.com/GAx5fJ3.png"
+    ),
 )
+
+@Composable
+private fun TripDayContent(data: TripDayData, launcher: ActivityResultLauncher<Intent>) {
+    Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+        Text(
+            text = data.title,
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp,
+            modifier = Modifier.padding(bottom = 4.dp)
+        )
+
+        when (data.title) {
+            "Denah Lokasi" -> {
+                val imageUrl = data.detail
+                val painter = rememberImagePainter(imageUrl)
+                val context = LocalContext.current
+                Image(
+                    painter = painter,
+                    contentDescription = "Image",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(550.dp)
+                        .clickable {
+                            val intent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://goo.gl/maps/xDidVM1wbc3TwBbD6")
+                            )
+                            startActivity(context, intent, null)
+                        }
+                )
+            }
+            "Website Resmi" -> {
+                Text(
+                    text = data.detail,
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp,
+                    modifier = Modifier.clickable {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(data.detail))
+                        launcher.launch(intent)
+                    }
+                )
+            }
+            else -> {
+                Text(
+                    text = data.detail,
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp
+                )
+            }
+        }
+    }
+}

@@ -5,11 +5,13 @@ package com.example.jakartaecotourismapp.ui.features
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -47,12 +50,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
+import coil.compose.rememberImagePainter
 import com.example.jakartaecotourismapp.R
 import com.example.jakartaecotourismapp.ui.model.ImageData
 import com.example.jakartaecotourismapp.ui.model.LocationChip
 import com.example.jakartaecotourismapp.ui.model.TopButton
 import com.example.jakartaecotourismapp.ui.model.TripDataItem
-import com.example.jakartaecotourismapp.ui.model.TripDayContent
 import com.example.jakartaecotourismapp.ui.model.TripDayData
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.*
@@ -281,4 +284,62 @@ private var tripDays = listOf(
                 "\n" +
                 "Luasnya mencapai lebih dari 15 hektar dan berisi lebih dari 10.000 pohon. Suasana sejuknya sangat pas untuk menyegarkan tubuh maupun pikiran. Jika butuh pelarian singkat dari kesibukan kota, cobalah untuk mengunjungi teduhnya Hutan Kota Srengseng.\n"
     ),
+
+    TripDayData(
+        title = "Denah Lokasi",
+        detail = "https://i.imgur.com/c0xJfoO.png"
+    ),
 )
+
+@Composable
+private fun TripDayContent(data: TripDayData, launcher: ActivityResultLauncher<Intent>) {
+    Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+        Text(
+            text = data.title,
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp,
+            modifier = Modifier.padding(bottom = 4.dp)
+        )
+
+        when (data.title) {
+            "Denah Lokasi" -> {
+                val imageUrl = data.detail
+                val painter = rememberImagePainter(imageUrl)
+                val context = LocalContext.current
+                Image(
+                    painter = painter,
+                    contentDescription = "Image",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(550.dp)
+                        .clickable {
+                            val intent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://goo.gl/maps/4q3GqzPP4dpEyD2v5")
+                            )
+                            startActivity(context, intent, null)
+                        }
+                )
+            }
+            "Website Resmi" -> {
+                Text(
+                    text = data.detail,
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp,
+                    modifier = Modifier.clickable {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(data.detail))
+                        launcher.launch(intent)
+                    }
+                )
+            }
+            else -> {
+                Text(
+                    text = data.detail,
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp
+                )
+            }
+        }
+    }
+}

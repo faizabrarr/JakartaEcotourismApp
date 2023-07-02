@@ -1,15 +1,9 @@
 package com.example.jakartaecotourismapp.ui.model
 
-import android.content.Intent
-import android.net.Uri
-import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -111,41 +105,5 @@ fun LocationChip(text: String) {
             fontSize = 13.sp,
             color = Color.Black,
         )
-    }
-}
-
-@Composable
-fun TripDayContent(day: TripDayData, launcher: ActivityResultLauncher<Intent>) {
-    val uri = Uri.parse(day.detail)
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-
-    Column(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        Text(
-            text = day.title,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.ExtraBold,
-            letterSpacing = 0.75.sp
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        if (day.detail.startsWith("http://") || day.detail.startsWith("https://")) {
-            Text(
-                text = day.detail,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light,
-                lineHeight = 18.sp,
-                modifier = Modifier.clickable { launcher.launch(intent) }
-            )
-        } else {
-            Text(
-                text = day.detail,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light,
-                lineHeight = 18.sp,
-            )
-        }
     }
 }

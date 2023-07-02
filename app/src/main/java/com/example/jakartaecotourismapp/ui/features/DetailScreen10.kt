@@ -5,11 +5,13 @@ package com.example.jakartaecotourismapp.ui.features
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -47,12 +50,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
+import coil.compose.rememberImagePainter
 import com.example.jakartaecotourismapp.R
 import com.example.jakartaecotourismapp.ui.model.ImageData
 import com.example.jakartaecotourismapp.ui.model.LocationChip
 import com.example.jakartaecotourismapp.ui.model.TopButton
 import com.example.jakartaecotourismapp.ui.model.TripDataItem
-import com.example.jakartaecotourismapp.ui.model.TripDayContent
 import com.example.jakartaecotourismapp.ui.model.TripDayData
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.*
@@ -60,15 +63,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.yield
 import kotlin.math.absoluteValue
 
+
 private val imageList = listOf(
     ImageData(
-        R.drawable.j1
-    ),
-    ImageData(
         R.drawable.j2
-    ),
-    ImageData(
-        R.drawable.j3
     ),
     ImageData(
         R.drawable.j4
@@ -306,4 +304,62 @@ private var tripDays = listOf(
                 "Tebet Eco Park memiliki prinsip untuk meminimalisasi pembongkaran area taman yang sebelumnya sudah rindang dan hijau dengan berbagai pohon dan vegetasi. Dalam pertimbangan desain, ekosistem hutan kota yang sudah lama berlangsung dijaga agar tidak terganggu bahkan, dimaksimalkan potensinya sebagai centerpiece atau atraksi utama dari taman. Hal ini dilakukan dengan menggunakan garis organik yang melengkung dan meliuk, berada diantara pepohonan agar tidak banyak pohon yang harus ditebang ataupun direlokasi. Paviliun utara dan selatan juga mengakomodasi pohon pohon besar agar tetap hidup tanpa harus mengubah bentuk bangunan dengan cara menyediakan void (lubang) di atap yang memungkinkan batang pohon berada di dalam bangunan, akar pohon terlindung dan tetap dapat mengambil nutrisi dari tanah, dan kanopi pohon berada di atas atap agar tetap mendapatkan cahaya matari dengan maksimal.\n"
 
     ),
+
+    TripDayData(
+        title = "Denah Lokasi",
+        detail = "https://i.imgur.com/CCjO0aJ.png"
+    ),
 )
+
+@Composable
+private fun TripDayContent(data: TripDayData, launcher: ActivityResultLauncher<Intent>) {
+    Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+        Text(
+            text = data.title,
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp,
+            modifier = Modifier.padding(bottom = 4.dp)
+        )
+
+        when (data.title) {
+            "Denah Lokasi" -> {
+                val imageUrl = data.detail
+                val painter = rememberImagePainter(imageUrl)
+                val context = LocalContext.current
+                Image(
+                    painter = painter,
+                    contentDescription = "Image",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(550.dp)
+                        .clickable {
+                            val intent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://goo.gl/maps/i74yxNMWHu9XW7wdA")
+                            )
+                            startActivity(context, intent, null)
+                        }
+                )
+            }
+            "Website Resmi" -> {
+                Text(
+                    text = data.detail,
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp,
+                    modifier = Modifier.clickable {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(data.detail))
+                        launcher.launch(intent)
+                    }
+                )
+            }
+            else -> {
+                Text(
+                    text = data.detail,
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp
+                )
+            }
+        }
+    }
+}
